@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="الأذكار">
+<meta name="theme-color" content="#eef2f8">
+<title>الأذكار</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Amiri:wght@400;700&family=Amiri+Quran&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main id="app">
+
+  <!-- الصفحة الرئيسية -->
+  <section id="home">
+    <div class="top">
+      <div class="brand"><img id="appico" alt="" width="46" height="46"><h1>الأذكار</h1></div>
+      <button class="ib glass" id="st" aria-label="الإعدادات"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 7h9M19 7h1M4 17h1M11 17h9"/><circle cx="16" cy="7" r="2.4"/><circle cx="8" cy="17" r="2.4"/></svg></button>
+    </div>
+    <p class="sub" id="sb"></p>
+    <div id="dd" class="glass hero" role="button" tabindex="0"><span class="shm"></span><p class="lb" style="margin:0">ذكر اليوم · <span id="hj"></span></p><p id="dt"></p></div>
+
+    <!-- وصول سريع -->
+    <div class="tiles boot" id="qt">
+      <button class="tile glass" data-id="mq" style="--c:#b99468;--k:0"><i><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6c-2-1.5-5-2-8-1.5v13c3-.5 6 0 8 1.5 2-1.5 5-2 8-1.5v-13C17 4 14 4.5 12 6z"/><path d="M12 6v13"/></svg></i><b>المصحف</b><small id="tm"></small></button>
+      <button class="tile glass" data-id="prayer" style="--c:#4db6ac;--k:1"><i><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></i><b>مواقيت الصلاة</b><small id="tp"></small><small id="tp2"></small></button>
+      <button class="tile glass" data-id="qibla" style="--c:#d6a63e;--k:2"><i><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg></i><b>القبلة</b><small>اتجاه الكعبة</small></button>
+      <button class="tile glass" data-id="tasbih" style="--c:#7986cb;--k:3"><i><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="1.7"/><circle cx="18.5" cy="9" r="1.7"/><circle cx="18.5" cy="15" r="1.7"/><circle cx="12" cy="19" r="1.7"/><circle cx="5.5" cy="15" r="1.7"/><circle cx="5.5" cy="9" r="1.7"/></svg></i><b>السبحة</b><small id="tt2"></small></button>
+    </div>
+
+    <h2 class="sec">الأقسام</h2>
+    <div class="grid boot" id="g"></div>
+    <button class="pill glass wide" id="more" data-id="more" style="--c:#8d7bc7"><span style="flex:1">المزيد</span><small>الوضوء · السفر · الطعام · الكرب · الاستغفار</small></button>
+    <p class="foot" id="ft"></p>
+  </section>
+
+  <!-- صفحة التفاصيل (الأقسام، المواقيت، القبلة، السبحة، المصحف، التنبيهات) -->
+  <section id="v" hidden>
+    <header class="glass">
+      <button class="ib glass" id="bk" aria-label="رجوع"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
+      <div class="ttl"><b id="vt"></b><small id="vs"></small></div>
+      <button class="ib glass" id="rs" aria-label="إعادة العدّ"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 1 1-2.6-5.9M20 4v5h-5"/></svg></button>
+      <button class="ib glass" id="sg" aria-label="الإعدادات" style="font-size:18px;font-weight:700">Aa</button>
+      <div id="bar"><i></i></div>
+    </header>
+    <div id="body"></div>
+  </section>
+</main>
+
+<!-- نافذة الإعدادات (تُبنى من JS) -->
+<div class="ov" id="set" hidden>
+  <div class="scrim"></div>
+  <div class="sheet glass"><div class="grab"></div><h2>الإعدادات</h2><div id="setb"></div><button class="row pri" id="setx"><span>تم</span></button></div>
+</div>
+
+<!-- نافذة إضافة ذكر (من قسم «أذكاري») -->
+<div class="ov" id="add" hidden>
+  <div class="scrim"></div>
+  <div class="sheet glass">
+    <div class="grab"></div><h2>إضافة ذكر</h2>
+    <textarea id="at" rows="4" placeholder="اكتب الذكر هنا"></textarea>
+    <p class="lb">القسم</p><select id="ac"></select>
+    <p class="lb">عدد التكرار</p><input id="an" type="number" min="1" max="1000" inputmode="numeric">
+    <button class="row pri" id="as1"><span>حفظ</span></button>
+    <button class="row" id="as0"><span>إلغاء</span></button>
+  </div>
+</div>
+
+<!-- نافذة إضافة تنبيه خاص -->
+<div class="ov" id="nadd" hidden>
+  <div class="scrim"></div>
+  <div class="sheet glass">
+    <div class="grab"></div><h2>تنبيه جديد</h2>
+    <textarea id="nx" rows="3" placeholder="نص التنبيه (مثال: سبّح الله)"></textarea>
+    <p class="lb">النوع</p>
+    <select id="nty"><option value="t">يوميًا في وقت محدد</option><option value="e">كل عدد من الدقائق</option></select>
+    <div id="ntt"><p class="lb">الوقت</p><input type="time" id="ntv" value="08:00"></div>
+    <div id="nte" hidden><p class="lb">كل كم دقيقة</p><input type="number" id="nmv" min="1" max="1440" value="30" inputmode="numeric"></div>
+    <button class="row pri" id="ns1"><span>حفظ</span></button>
+    <button class="row" id="ns0"><span>إلغاء</span></button>
+  </div>
+</div>
+
+<!-- نافذة النسخ الاحتياطي (ملف / نص) -->
+<div class="ov" id="imp" hidden>
+  <div class="scrim"></div>
+  <div class="sheet glass">
+    <div class="grab"></div><h2>نسخة احتياطية</h2>
+    <p class="at" style="text-align:start">احفظ النص أو الملف في مكان آمن (iCloud Drive أو الملاحظات). للاستعادة الصق النص هنا أو اختر الملف ثم اضغط «استعادة».</p>
+    <textarea id="impt" rows="5" spellcheck="false" placeholder="نص النسخة الاحتياطية"></textarea>
+    <input type="file" id="impf" accept=".json,application/json" hidden>
+    <button class="row" id="ib1"><span>مشاركة / تنزيل كملف</span></button>
+    <button class="row" id="ib2"><span>نسخ النص</span></button>
+    <button class="row" id="ib3"><span>اختيار ملف للاستعادة</span></button>
+    <button class="row pri" id="ib4"><span>استعادة من النص</span></button>
+  </div>
+</div>
+
+<!-- نافذة تأكيد عامة -->
+<div class="ov" id="gq" hidden>
+  <div class="scrim"></div>
+  <div class="sheet glass"><div class="grab"></div><p class="gqm" id="gqm"></p><button class="row pri" id="gq1"><span>موافق</span></button><button class="row" id="gq0"><span>إلغاء</span></button></div>
+</div>
+
+<!-- إعداد ربط حساب جوجل والمزامنة -->
+<div class="ov" id="gcs" hidden>
+  <div class="scrim"></div>
+  <div class="sheet glass">
+    <div class="grab"></div><h2>ربط حساب جوجل</h2>
+    <p class="at" style="text-align:start">تسجيل الدخول بجوجل عادي (اسم وبريد فقط، بدون Drive). تحتاج إعدادًا مجانيًا مرة واحدة عبر Firebase:</p>
+    <ol class="steps"><li>أنشئ مشروعًا في console.firebase.google.com.</li><li>Authentication ← Sign-in method ← فعّل Google، وانسخ «Web client ID».</li><li>في Google Cloud ← Credentials ← افتح هذا الـ Web client وأضف رابط موقعك (https) في Authorized JavaScript origins، وأضف نطاقك في Authentication ← Settings ← Authorized domains.</li><li>Firestore Database ← Create، ثم Rules والصق القاعدة بالأسفل ← Publish.</li><li>Project settings ← انسخ Web API Key و Project ID.</li></ol>
+    <pre class="rules" dir="ltr">rules_version = '2';
+service cloud.firestore {
+  match /databases/{d}/documents {
+    match /adhkar/{uid} {
+      allow read, write: if request.auth != null
+                         && request.auth.uid == uid;
+    }
+  }
+}</pre>
+    <p class="lb">Web client ID</p><input type="text" id="gcin" dir="ltr" placeholder="xxxx.apps.googleusercontent.com" autocomplete="off" spellcheck="false">
+    <p class="lb">Web API Key (اختياري للمزامنة)</p><input type="text" id="fbk" dir="ltr" placeholder="AIza..." autocomplete="off" spellcheck="false">
+    <p class="lb">Project ID (اختياري للمزامنة)</p><input type="text" id="fbp" dir="ltr" placeholder="my-project-id" autocomplete="off" spellcheck="false">
+    <button class="row pri" id="gcs1"><span>حفظ</span></button>
+    <button class="row" id="gcs0"><span>إلغاء</span></button>
+  </div>
+</div>
+
+<!-- شريط التنقل العائم -->
+<nav id="tb" class="glass" aria-label="التنقل"></nav>
+
+<div id="fps" hidden></div>
+<div id="ts" class="glass" role="status"></div>
+<div id="bn" class="glass" role="alert"><p id="bt"></p><div class="bnb"><button id="bo" hidden>افتح</button><button id="bx">حسنًا</button></div></div>
+
+<script src="script.js" defer></script>
+<!-- تحميل نص القرآن عند الحاجة (JSON module) — منفصل حتى لا يعطّل بقية التطبيق في المتصفحات القديمة -->
+<script type="module">window.qImp=u=>import(u,{with:{type:'json'}}).then(m=>m.default)</script>
+</body>
+</html>
