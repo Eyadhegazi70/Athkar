@@ -1,0 +1,44 @@
+name: Build iOS IPA
+
+on:
+  push:
+    branches: [ main, master ]
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Prepare web assets directory
+        run: |
+          mkdir -p www
+          cp -R *.html *.css *.js *.json assets www/ 2>/dev/null || true
+          cp -R * www/ 2>/dev/null || true
+
+      - name: Install Capacitor CLI & Dependencies
+        run: |
+          npm install
+          npm install @capacitor/core @capacitor/ios @capacitor/cli
+
+      - name: Initialize Capacitor Config if missing
+        run: |
+          if [ ! -f "capacitor.config.json" ]; then
+            npx cap init Athkar com.eyad.athkar --web-dir www
+          fi
+
+      - name: Add and Sync iOS Platform
+        run: |
+          npx cap add ios || true
+          npx cap sync ios
+
+      - name: Build iOS App Archive
+        run: |
+          cd ios/App
+          xcodebuild -workspace App.xcworkspace -scheme App -sdk iphoneos -configuration Release CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGN_ENTITLEMENTS="" CODE_SIGNING_ALLOWED=NO -archivePath App.xcarchive archive
