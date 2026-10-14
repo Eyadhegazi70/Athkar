@@ -16,11 +16,12 @@ jobs:
         with:
           node-version: 18
 
-      - name: Prepare web assets directory
+      - name: Prepare www directory
         run: |
           mkdir -p www
-          cp -R *.html *.css *.js *.json assets www/ 2>/dev/null || true
-          cp -R * www/ 2>/dev/null || true
+          cp index*.html www/index.html 2>/dev/null || true
+          cp script*.js www/script.js 2>/dev/null || true
+          cp style*.css www/style.css 2>/dev/null || true
 
       - name: Install Capacitor CLI & Dependencies
         run: |
@@ -42,3 +43,9 @@ jobs:
         run: |
           cd ios/App
           xcodebuild -workspace App.xcworkspace -scheme App -sdk iphoneos -configuration Release CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGN_ENTITLEMENTS="" CODE_SIGNING_ALLOWED=NO -archivePath App.xcarchive archive
+
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Athkar-iOS-App
+          path: ios/App/App.xcarchive
